@@ -1,5 +1,5 @@
-#include <Servo.h> 
- 
+#include <Servo.h>
+
 Servo myservo;
 
 int SERVO_PIN = 9;
@@ -17,19 +17,41 @@ int delayStep = 200;
 int speedLimit = 100;
 
 boolean firstPass = true;
- 
-void setup() 
-{ 
+
+void setup()
+{
   myservo.attach(SERVO_PIN);
 }
- 
-void loop() 
-{ 
+
+void loop()
+{
   myservo.write(pos);
-  
+
   if (firstPass) {
     delay(5000);
     firstPass = false;
+  }
+
+  long lungeSeed = random(10);
+  if (lungeSeed == 1) {
+    delay(300);
+    myservo.write(pos + 5);
+    delay(30);
+    myservo.write(pos);
+    delay(30);
+    myservo.write(pos - 5);
+    delay(30);
+    myservo.write(pos);
+    delay(30);
+    myservo.write(pos + 5);
+    delay(30);
+    myservo.write(pos);
+    delay(30);
+    myservo.write(pos - 5);
+    delay(30);
+    myservo.write(pos);
+    delay(1500);
+    return;
   }
 
   int stepSize = (int) (analogRead(STEP_SIZE_PIN) / 100);
@@ -62,4 +84,5 @@ void loop()
   }
 
   delay(max(delayTime, speedLimit));
-} 
+}
+
